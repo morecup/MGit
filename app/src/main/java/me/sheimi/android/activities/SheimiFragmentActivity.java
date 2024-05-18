@@ -191,7 +191,13 @@ public class SheimiFragmentActivity extends AppCompatActivity {
             .setPositiveButton(R.string.label_ok, new DummyDialogListener()).show();
     }
 
-    public void showOptionsDialog(int title, final int option_names,
+    public void showMessageDialog(int title, int msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title).setMessage(getString(msg))
+            .setPositiveButton(R.string.label_ok, new DummyDialogListener()).show();
+    }
+
+    public void showOptionsDialog(int title,final int option_names,
                                   final onOptionDialogClicked[] option_listeners) {
         CharSequence[] options_values = getResources().getStringArray(option_names);
         showOptionsDialog(title, options_values, option_listeners);

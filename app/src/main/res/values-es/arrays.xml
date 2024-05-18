@@ -20,6 +20,7 @@
         <item>Quick Push(Add,Commit,Push)</item>
         <item>Anadir todo a stage</item>
         <item>Commit</item>
+        <item>Undo Last Commit</item>
         <item>Reset (DURO)</item>
         <item>Merge</item>
         <item>Fetch</item>
