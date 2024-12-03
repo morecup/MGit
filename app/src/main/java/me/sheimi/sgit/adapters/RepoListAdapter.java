@@ -94,7 +94,7 @@ public class RepoListAdapter extends ArrayAdapter<Repo> implements
     }
 
     public List<Repo> getRepo(String query) {
-        Cursor cursor = RepoDbManager.searchRepo("unli");
+        Cursor cursor = RepoDbManager.searchRepo(query);
         List<Repo> repo = Repo.getRepoList(mActivity, cursor);
         return repo;
     }
