@@ -62,7 +62,7 @@ public class PushTask extends RepoRemoteOpTask {
         if (mCallback != null) {
             mCallback.onPostExecute(isSuccess);
         }
-        if (isSuccess) {
+        if (isSuccess&&!resultMsg.toString().equals("null")) {
             BasicFunctions.getActiveActivity().showMessageDialog(
                     R.string.dialog_push_result, resultMsg.toString());
         }
@@ -168,8 +168,9 @@ public class PushTask extends RepoRemoteOpTask {
                                 update.getRemoteName());
                 break;
             case UP_TO_DATE:
-                msg = String.format("[%s] remote ref is up to date\n",
+                String msgUTD = String.format("[%s] remote ref is up to date\n",
                         update.getRemoteName());
+                BasicFunctions.getActiveActivity().showToastMessage(msgUTD);
                 break;
         }
         resultMsg.append(msg);
