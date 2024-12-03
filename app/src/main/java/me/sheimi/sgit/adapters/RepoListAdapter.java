@@ -5,15 +5,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import me.sheimi.android.activities.SheimiFragmentActivity;
 import me.sheimi.android.utils.BasicFunctions;
+import me.sheimi.android.utils.Profile;
 import me.sheimi.sgit.R;
 import com.manichord.mgit.repolist.RepoListActivity;
 import me.sheimi.sgit.activities.RepoDetailActivity;
 import me.sheimi.sgit.database.RepoContract;
 import me.sheimi.sgit.database.RepoDbManager;
 import me.sheimi.sgit.database.models.Repo;
+import me.sheimi.sgit.repo.tasks.repo.AddToStageTask;
+import me.sheimi.sgit.repo.tasks.repo.CommitChangesTask;
+import me.sheimi.sgit.repo.tasks.repo.PushTask;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -162,31 +167,48 @@ public class RepoListAdapter extends ArrayAdapter<Repo> implements
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view,
             int position, long id) {
-        Repo repo = getItem(position);
-        if (repo.isExternal() && mActivity.checkAndRequestAccessAllFilesPermission(0)) {
-            return;
+        final Repo repo = getItem(position);
+        if (!repo.getRepoStatus().equals(RepoContract.REPO_STATUS_NULL))
+            return ;
+        Context context = getContext();
+        if (context instanceof SheimiFragmentActivity) {
+            showRepoOptionsDialog((SheimiFragmentActivity) context, repo);
         }
-        Intent intent = new Intent(mActivity, RepoDetailActivity.class);
-        intent.putExtra(Repo.TAG, repo);
-        mActivity.startActivity(intent);
+        return ;
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view,
             int position, long id) {
         final Repo repo = getItem(position);
-        if (!repo.getRepoStatus().equals(RepoContract.REPO_STATUS_NULL))
+        return enterRepoDetail(repo);
+    }
+
+    public boolean enterRepoDetail(Repo repo) {
+        if (repo.isExternal() && mActivity.checkAndRequestAccessAllFilesPermission(0)) {
             return false;
-        Context context = getContext();
-        if (context instanceof SheimiFragmentActivity) {
-            showRepoOptionsDialog((SheimiFragmentActivity) context, repo);
         }
+        Intent intent = new Intent(mActivity, RepoDetailActivity.class);
+        intent.putExtra(Repo.TAG, repo);
+        mActivity.startActivity(intent);
         return true;
     }
 
     private void showRepoOptionsDialog(final SheimiFragmentActivity context, final Repo repo) {
 
         SheimiFragmentActivity.onOptionDialogClicked[] dialog = new SheimiFragmentActivity.onOptionDialogClicked[] {
+            new SheimiFragmentActivity.onOptionDialogClicked() {
+                @Override
+                public void onClicked() {
+                    enterRepoDetail(repo);
+                }
+            },
+            new SheimiFragmentActivity.onOptionDialogClicked() {
+                @Override
+                public void onClicked() {
+                    showQuickPushDialog(context, repo);
+                }
+            },
             new SheimiFragmentActivity.onOptionDialogClicked() {
                 @Override
                 public void onClicked() {
@@ -208,7 +230,7 @@ public class RepoListAdapter extends ArrayAdapter<Repo> implements
 
         if(repoHasHttpRemote){
             //TODO : Transform ssh uri in http?
-            dialog[2] = new SheimiFragmentActivity.onOptionDialogClicked() {
+            dialog[4] = new SheimiFragmentActivity.onOptionDialogClicked() {
                 @Override
                 public void onClicked() {
 
@@ -307,6 +329,49 @@ public class RepoListAdapter extends ArrayAdapter<Repo> implements
                 }
             }
         );
+    }
+
+    private void showQuickPushDialog(SheimiFragmentActivity context, final Repo repo) {
+        Set<String> remotes = repo.getRemotes();
+        if (remotes == null || remotes.isEmpty()) {
+            mActivity.showToastMessage(R.string.alert_please_add_a_remote);
+            return;
+        }
+
+        String quickPushMsg = Profile.getQuickPushMsg(mActivity.getApplicationContext());
+        if(quickPushMsg==null || quickPushMsg.isEmpty()) {
+            mActivity.showToastMessage(R.string.alert_plese_set_commit_msg_for_quick_push);
+            return;
+        }
+
+        // stageAll(include new file), commit, push
+        AddToStageTask addTask = new AddToStageTask(repo, ".") {
+            @Override
+            protected void onPostExecute(Boolean isSuccess) {
+                super.onPostExecute(isSuccess);
+                //commit
+                CommitChangesTask commitTask = new CommitChangesTask(mRepo,
+                    quickPushMsg, false, false,
+                    Profile.getUsername(mActivity.getApplicationContext()),
+                    Profile.getEmail(mActivity.getApplicationContext()),
+                    new AsyncTaskPostCallback() {
+                        @Override
+                        public void onPostExecute(Boolean isSuccess) {
+                            //   mActivity.reset() is copy from existed code when new CommitChangeTask(),
+                            // idk this line work for what, but it work bad on here, so comment.
+                            // mActivity.reset();
+
+                            PushTask pushTask = new PushTask(mRepo,remotes.toArray()[0].toString(),
+                                false,false,
+                                null);
+                            pushTask.executeTask();
+                        }
+                    });
+                commitTask.executeTask();
+            }
+        };
+
+        addTask.executeTask();
     }
 
     private class RepoListItemHolder {

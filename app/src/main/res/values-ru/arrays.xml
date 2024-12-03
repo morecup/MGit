@@ -36,6 +36,8 @@
         <item>Настройки</item>
     </string-array>
     <string-array name="dialog_choose_repo_action_items">
+        <item>Open</item>
+        <item>QuickPush</item>
         <item>Переименовать</item>
         <item>Удалить</item>
     </string-array>
