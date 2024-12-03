@@ -8,6 +8,7 @@
 
     <!-- action -->
     <string name="action_search">Search</string>
+    <string name="default_quick_push">Quick push</string>
     <string name="action_clone">Clone</string>
     <string name="action_import_repo">Import Repository</string>
     <string name="action_settings">Settings</string>

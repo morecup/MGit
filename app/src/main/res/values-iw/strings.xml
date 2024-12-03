@@ -3,6 +3,7 @@
   <string name="default_text">טקסט ברירת מחדל</string>
   <string name="title_clone_repo">העתק מאגר</string>
   <string name="action_search">חיפוש</string>
+    <string name="default_quick_push">Quick push</string>
   <string name="action_clone">העתקה</string>
   <string name="action_import_repo">יבא מאגר</string>
   <string name="action_git_profile">פרופיל git</string>

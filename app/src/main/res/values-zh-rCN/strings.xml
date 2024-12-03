@@ -6,6 +6,7 @@
 
     <!-- action -->
     <string name="action_search">查找</string>
+    <string name="default_quick_push">快速推送</string>
     <string name="action_clone">克隆</string>
     <string name="action_import_repo">导入仓库</string>
     <string name="action_settings">设置</string>

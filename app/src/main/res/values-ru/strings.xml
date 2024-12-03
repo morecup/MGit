@@ -6,6 +6,7 @@
 
     <!-- action -->
     <string name="action_search">Поиск</string>
+    <string name="default_quick_push">Quick push</string>
     <string name="action_clone">Клонировать</string>
     <string name="action_import_repo">Импортировать репозиторий</string>
     <string name="action_settings">Настройки</string>

@@ -169,6 +169,9 @@ public class RepoListActivity extends SheimiFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
+            case R.id.default_quick_push:
+                quickPushSettingRepo();
+                return true;
             case R.id.action_new:
                 showCloneView();
                 return true;

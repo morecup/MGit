@@ -5,6 +5,7 @@
 
     <!-- action -->
     <string name="action_search">Suchen</string>
+    <string name="default_quick_push">Quick push</string>
     <string name="action_clone">Klonen</string>
     <string name="action_import_repo">Repository importieren</string>
     <string name="action_git_profile">Git-Profil</string>

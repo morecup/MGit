@@ -6,6 +6,7 @@
 
     <!-- action -->
     <string name="action_search">찾기</string>
+    <string name="default_quick_push">Quick push</string>
     <string name="action_clone">Clone</string>
     <string name="action_import_repo">저장소 불러오기</string>
     <string name="action_settings">설정</string>

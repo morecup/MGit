@@ -6,6 +6,7 @@
 
     <!-- action -->
     <string name="action_search">Rechercher</string>
+    <string name="default_quick_push">Quick push</string>
     <string name="action_clone">Cloner</string>
     <string name="action_import_repo">Importer le dépôt</string>
     <string name="action_settings">Paramètres</string>

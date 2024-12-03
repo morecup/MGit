@@ -6,6 +6,7 @@
 
     <!-- action -->
     <string name="action_search">検索</string>
+    <string name="default_quick_push">Quick push</string>
     <string name="action_clone">クローン</string>
     <string name="action_import_repo">リポジトリをインポート</string>
     <string name="action_git_profile">Git プロフィール</string>

@@ -1,11 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <item
         android:id="@+id/action_search"
         app:actionViewClass="android.widget.SearchView"
         android:icon="@drawable/ic_search"
         app:showAsAction="always|collapseActionView"
         android:title="@string/action_search"/>
+    <item
+        android:id="@+id/default_quick_push"
+        android:icon="@drawable/ic_push"
+        app:showAsAction="always"
+        android:title="@string/default_quick_push"/>
     <item
         android:id="@+id/action_new"
         android:icon="@drawable/ic_content_new"
