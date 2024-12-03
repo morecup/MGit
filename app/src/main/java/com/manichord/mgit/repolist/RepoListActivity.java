@@ -143,7 +143,9 @@ public class RepoListActivity extends SheimiFragmentActivity {
             return;
         }else {
             List<Repo> repoList = mRepoListAdapter.getRepo(defaultRepoName);
-            mRepoListAdapter.showQuickPushDialog(null,repoList.get(0));
+            if (!repoList.isEmpty()){
+                mRepoListAdapter.showQuickPushDialog(null,repoList.get(0));
+            }
         }
     }
 
