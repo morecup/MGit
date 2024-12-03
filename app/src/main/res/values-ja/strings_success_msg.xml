@@ -3,6 +3,7 @@
 
     <string name="success_add_to_stage">ファイルはステージに追加されました。</string>
     <string name="success_commit">変更はコミットされました。</string>
+    <string name="commit_no_change">Commit no change</string>
     <string name="success_reset">変更は却下されました。</string>
     <string name="success_cherry_pick">チェリーピックに成功しました。</string>
     <string name="success_rebase">リベースに成功しました。</string>

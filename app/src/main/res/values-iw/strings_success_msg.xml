@@ -2,6 +2,7 @@
 <resources>
   <string name="success_add_to_stage">הקובץ נוסף לשלב</string>
   <string name="success_commit">שינויים נוספו ל-commit</string>
+    <string name="commit_no_change">Commit no change</string>
   <string name="success_reset">שינויים בוטלו</string>
   <string name="success_cherry_pick">Cherry pick הוצלח</string>
   <string name="success_rebase">Rebase הוצלח</string>

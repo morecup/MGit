@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
+import org.eclipse.jgit.api.errors.EmtpyCommitException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
@@ -53,7 +54,10 @@ public class CommitChangesTask extends RepoOpTask {
 
     public boolean commit() {
         try {
-            commit(mRepo, mStageAll, mIsAmend, mCommitMsg, mAuthorName, mAuthorEmail);
+            String commit = commit(mRepo, mStageAll, mIsAmend, mCommitMsg, mAuthorName, mAuthorEmail);
+            if (commit!=null && commit.equals("EmtpyCommit")){
+                setSuccessMsg(R.string.commit_no_change);
+            }
         } catch (StopTaskException e) {
             return false;
         } catch (GitAPIException e) {
@@ -67,7 +71,7 @@ public class CommitChangesTask extends RepoOpTask {
         return true;
     }
 
-    public static void commit(Repo repo, boolean stageAll, boolean isAmend,
+    public static String commit(Repo repo, boolean stageAll, boolean isAmend,
             String msg, String authorName, String authorEmail) throws Exception, NoHeadException, NoMessageException,
             UnmergedPathsException, ConcurrentRefUpdateException,
             WrongRepositoryStateException, GitAPIException, StopTaskException {
@@ -90,11 +94,16 @@ public class CommitChangesTask extends RepoOpTask {
         }
         CommitCommand cc = repo.getGit().commit()
                 .setCommitter(committerName, committerEmail).setAll(stageAll)
-                .setAmend(isAmend).setMessage(msg);
+                .setAmend(isAmend).setMessage(msg).setAllowEmpty(false);
         if (authorName != null && authorEmail != null) {
             cc.setAuthor(authorName, authorEmail);
         }
-        cc.call();
+        try {
+            cc.call();
+        } catch (EmtpyCommitException e){
+            return "EmtpyCommit";
+        }
         repo.updateLatestCommitInfo();
+        return null;
     }
 }

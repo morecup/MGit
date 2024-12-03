@@ -4,6 +4,7 @@
     <string name="success_add_to_stage">文件已被添加到暂存区</string>
     <string name="success_remove_file">文件已删除</string>
     <string name="success_commit">更改已提交</string>
+    <string name="commit_no_change">无变更需要提交</string>
     <string name="success_reset">放弃所有修改</string>
     <string name="success_cherry_pick">择取成功</string>
     <string name="success_rebase">rebase 成功</string>

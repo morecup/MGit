@@ -3,6 +3,7 @@
 
     <string name="success_add_to_stage">Datei wurde zum Staging-Bereich hinzugefügt</string>
     <string name="success_commit">Beitrag wurde erfolgreich commited</string>
+    <string name="commit_no_change">Commit no change</string>
     <string name="success_reset">Commit wurde verworfen</string>
     <string name="success_cherry_pick">Cherry Pick erfolgreich</string>
     <string name="success_rebase">Rebase erfolgreich</string>

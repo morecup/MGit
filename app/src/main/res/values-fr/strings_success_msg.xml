@@ -4,6 +4,7 @@
     <string name="success_add_to_stage">Fichier a été ajouté au stage</string>
     <string name="success_remove_file">Fichier a été supprimé</string>
     <string name="success_commit">Les changements ont été commités</string>
+    <string name="commit_no_change">Commit no change</string>
     <string name="success_reset">Les changements ont été supprimés</string>
     <string name="success_cherry_pick">Succès de cherry pick</string>
     <string name="success_rebase">Succès de rebase</string>

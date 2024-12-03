@@ -4,6 +4,7 @@
     <string name="success_add_to_stage">Fichero está anado a stage</string>
     <string name="success_remove_file">Fichero está eliminado</string>
     <string name="success_commit">Alteraciónes están confirmadas</string>
+    <string name="commit_no_change">Commit no change</string>
     <string name="success_reset">Alteraciónes están desechadas</string>
     <string name="success_cherry_pick">Cherrypicked con éxito</string>
     <string name="success_rebase">Rebased con éxito</string>
