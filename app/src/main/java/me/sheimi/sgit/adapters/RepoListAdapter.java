@@ -93,6 +93,12 @@ public class RepoListAdapter extends ArrayAdapter<Repo> implements
         notifyDataSetChanged();
     }
 
+    public List<Repo> getRepo(String query) {
+        Cursor cursor = RepoDbManager.searchRepo("unli");
+        List<Repo> repo = Repo.getRepoList(mActivity, cursor);
+        return repo;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -331,7 +337,7 @@ public class RepoListAdapter extends ArrayAdapter<Repo> implements
         );
     }
 
-    private void showQuickPushDialog(SheimiFragmentActivity context, final Repo repo) {
+    public void showQuickPushDialog(SheimiFragmentActivity context, final Repo repo) {
         Set<String> remotes = repo.getRemotes();
         if (remotes == null || remotes.isEmpty()) {
             mActivity.showToastMessage(R.string.alert_please_add_a_remote);

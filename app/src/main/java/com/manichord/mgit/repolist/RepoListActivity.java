@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.List;
 
 import me.sheimi.android.activities.SheimiFragmentActivity;
+import me.sheimi.android.utils.Profile;
 import me.sheimi.sgit.MGitApplication;
 import me.sheimi.sgit.R;
 import me.sheimi.sgit.activities.RepoDetailActivity;
@@ -89,6 +90,7 @@ public class RepoListActivity extends SheimiFragmentActivity {
         binding.repoList.setOnItemClickListener(mRepoListAdapter);
         binding.repoList.setOnItemLongClickListener(mRepoListAdapter);
         mContext = getApplicationContext();
+        quickPushSettingRepo();
 
         Uri uri = this.getIntent().getData();
         if (uri != null) {
@@ -132,6 +134,16 @@ public class RepoListActivity extends SheimiFragmentActivity {
                     task.executeTask();
                 }
             }
+        }
+    }
+
+    private void quickPushSettingRepo(){
+        String defaultRepoName = Profile.getQuickPushDefaultRepoName(this.getApplicationContext());
+        if(defaultRepoName==null || defaultRepoName.isEmpty()) {
+            return;
+        }else {
+            List<Repo> repoList = mRepoListAdapter.getRepo(defaultRepoName);
+            mRepoListAdapter.showQuickPushDialog(null,repoList.get(0));
         }
     }
 
